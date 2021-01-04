@@ -14,23 +14,76 @@
     <title>Power Production Prediction!</title>
   </head>
   <body>
-    <h1>Hello, You are here find the power based on wind speed!</h1>
+    <h1>Hello, You are here to find the power based on wind speed!</h1>
     <div class="container">
-        <div class="row">
-          <div class="col-sm">
-            <input class="form-control" id="wind-input" type="number" placeholder="enter wind speed">
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-sm">
-            <button type="button" class="btn btn-success" id="power-button">Get Power Output</button>
-          </div>
-          <div class="col-sm">
-            <input class="form-control" id="power-output" type="text" placeholder="power output" readonly>
-          </div>
-        </div>
+         <table class="table table-dark">
+            <thead class="thead-dark">
+               <tr>
+                  <td style="width:200px;">
+                     <input class="form-control" id="wind-input" type="number" placeholder="enter wind speed">
+                  </td>
+                  <td style="text-align:center; width:200px;">
+                     <button type="button" class="btn btn-success" id="power-button">Get Power Output</button>
+                  </td>
+                  <td style="width:200px;">
+                     <input class="form-control" id="power-output" type="text" placeholder="power output" readonly>
+                  </td>
+               </tr>
+            </thead>
+         </table>
       </div>
+		
+		<div class="container">
+			<div class="row">
+				<div class="col-sm">
+					<h1>Wind Turbine Power Prediction</h1>
+					<p>A web service that provides predicted power values based on wind speed values sent as HTTP requests to the server.</p>
 
+					<ul class="list-group">
+						<li class="list-group-item">Model 1: polynomial regression performed with scikit-learn.</li>
+						<li class="list-group-item">Model 2: regression performed using support vector machines in scikit-learn.</li>
+						<li class="list-group-item">Model 3: a neural network with one hidden layer built using Keras/TensorFlow.</li>
+					</ul>
+
+				</div>
+			</div>
+
+		
+		<!-- Space for the input -->
+			<!-- two dummy cols so that input boc is 1/3 of width to match 3 model buttons -->
+			<div class="row">
+				<div class="col-sm">	
+					<label for="input">Input wind speed (m/s)</label>
+					<input class="form-control" id="input" type="text" placeholder="Wind speed here (m/s)..." >
+					<input class="form-control" id="wind-input" type="number" placeholder="enter wind speed">
+					<small id="passwordHelpInline" class="text-muted">
+						Must be an integer from 1 - 24
+					</small>
+				</div>
+
+				<div class="row">
+				<div class="col-sm">
+					<button type="button" class="btn btn-success" id="model-button">Model 1</button>		
+                
+				</div>
+				<div class="col-sm">
+					<button type="button" class="btn btn-primary" id="model2-button">Model 2</button>
+				</div>
+				<div class="col-sm">
+					<label for="output">Output power (kW)</label>
+					<input class="form-control" id="output2" type="text" placeholder="Output goes here.." readonly>
+				</div>
+			</div>
+			
+			<!-- Space for the three predictions -->
+			<div class="row">
+				<div class="col-sm">
+					<label for="output">Output power (kW)</label>
+					<input class="form-control" id="output1" type="text" placeholder="Output goes here.." readonly>
+				</div>
+
+			</div>		
+		</div>
     <!-- Optional JavaScript; choose one of the two! -->
 
     <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
@@ -46,21 +99,73 @@
 
 
       <script>
-         // When button is clicked, use the entered speed to estimate the power output
-		   // Code adapted from https://stackoverflow.com/a/7685819. &
-		   // https://www.sitepoint.com/ajaxjquery-getjson-simple-example/
-         $("#power-button").click(function(e) {
-            var speed = document.getElementById('wind-input').value;
-            host = window.location.origin
-            // console.log(typeof speed)
-               
-            $.getJSON("/api/power/"+speed, function(data) {
-               $('#power-output').val(data.power);
-               console.log("Wind speed " + speed + " gives power output of " + data.power);
-            });
-
+	  
+				// https://stackoverflow.com/questions/18042133/check-if-input-is-number-or-letter-javascript
+			// Function to check if a number has been entered
+			function is_number(input) {
+				if(input === '')
+					return false;
+				let regex = new RegExp(/[^0-9]/, 'g');
+				return (input.match(regex) === null);
+			}
+			// https://stackoverflow.com/questions/6454198/check-if-a-value-is-within-a-range-of-numbers
+			// Function to check if x between min and max (returns T)
+			function between(x, min, max) {
+				return x >= min && x <= max;
+			}
+		
+			// On clicking button get ip, feed to model1, create output
+			$("#model-button").click(function(e) {
+				e.preventDefault();
+				// Get the input
+				var ip = document.getElementById("input").value;//by id
+				// Check that it's an integer & within allowed range.
+				if (is_number(ip) && between(ip, 1, 24)){
+					$.getJSON("/api/model/"+encodeURI(ip), function(result) {
+						$('#output1').val(parseFloat(result.value).toFixed(2)); // float x.xx
+						console.log(result) //checking
+					});	
+				} else {
+					alert("Input must be a positive integer from 1 - 24.");	// error message	
+				}
+			});
             
-         });
+			// When button is clicked, use the entered speed to estimate the power output
+		   // Code adapted from https://stackoverflow.com/a/7685819. &
+		   // https://www.sitepoint.com/ajaxjquery-getjson-simple-example
+		   
+			$("#power-button").click(function(e) {
+				var speed = document.getElementById('wind-input').value;
+				host = window.location.origin
+				console.log(typeof speed)
+				console.log("WindInput Call")
+				   
+				$.getJSON("/api/power/"+speed, function(data) {
+				   $('#power-output').val(data.power);
+				   console.log("Wind speed " + speed + " gives power output of " + data.power);
+				});
+
+				
+			});
+			
+			// On clicking button get ip, feed to model2, create output
+			$("#model2-button").click(function(e) {
+				e.preventDefault();
+				// Get the input
+				var ip = document.getElementById("input").value;//by id
+				// Check that it's a number 
+				if (is_number(ip) && between(ip, 1, 24)){
+					// need to pass this ip to the app route, result is what is returned from request
+					$.getJSON("/api/model2/"+encodeURI(ip), function(result) {
+						$('#output2').val(parseFloat(result.value).toFixed(2)); // float x.xx
+						console.log(result) //checking
+					});	
+				} else {
+					alert("Input must be a positive integer from 1 - 24.");	// error message	
+				}
+			});
+			
+			
       </script>
   </body>
 </html>
