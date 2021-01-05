@@ -31,7 +31,7 @@ import tensorflow.keras as kr
 
 # Import my SVM regression model and the scaler to apply to x before predict.
 svmreg = joblib.load("svm-reg.pkl")
-print(svmreg.predict(scaler.transform([[t]])), "for t= ", t)
+#print(svmreg.predict(scaler.transform([[t]])), "for t= ", t)
 
 
 #from keras.models import load_model
@@ -42,7 +42,7 @@ model=keras.models.load_model("Model_NN.h5")
 # https://machinelearningmastery.com/save-load-keras-deep-learning-models/
 # load json and create model
 #json_file = open('testmodel.json', 'r')
-json_file = open('testmodel.json', 'r')
+json_file = open('Model_NN.json', 'r')
 loaded_model_json = json_file.read()
 json_file.close()
 #with open('Model_NN.json','r') as f:
@@ -57,16 +57,21 @@ model = kr.models.model_from_json(loaded_model_json)
 #modelJson = kr.models.model_from_json(loaded_model_json)
 
 # load weights into new model
-model.load_weights("testmodel.h5")
+model.load_weights("Model_NN.h5")
 #model=model.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 print("Compiled")
 print(model.summary())
 #print("Loaded model from disk")
 model_TEST = load_model("neural-nw.h5")
+model_S = load_model("Model_NN.h5")
+
 # Copy of variables and function from Project.ipynb
 # Set normalisation factors
 wsF = 25
 poF = 120
+Speed_F=25
+Power_F=120
+wind=20
 # Function to predict power output based on inputted wind speeds
 def power_output(windspeeds):
    """ Function to predict power output based on inputted wind speeds
@@ -78,7 +83,7 @@ def power_output(windspeeds):
    # If wind speed is inside the cut off levels
    if windspeeds > minWS and windspeeds < maxWS:
       ws = np.array([windspeeds])
-      return round(New_model_Json.predict(ws/wsF)[0][0]*poF, 3)
+      return round(model.predict([wind/Speed_F])[0][0]*Power_F, 3)
    else:
       #print("Error")
       return 0
@@ -87,7 +92,8 @@ def power_output(windspeeds):
 #test = power_output(15)
 # print(f"power output for wind speed 10 is: {test}")
 
-
+print("Input From screen")
+print(model.predict([wind/Speed_F])[0][0]*Power_F, 3)
 
 app = Flask(__name__, static_url_path='', static_folder='static')
 
@@ -130,12 +136,14 @@ def model(w):
 
 # Add power route.
 # curl http://127.0.0.1:5000/api/power/5
-@app.route('/api/power/<speed>')
+@app.route('/api/power/<int:w>')
 def power(speed):
-   s = float(speed)
+   ##s = float(speed)
    # get power from power curve model
-   return {"power" : power_output(s)}
+   ##return {"power" : power_output(s)}
    #return {"power": str([[50]])}
+   p = model_S.predict([[w]])
+   return {"value": str(p[0][0])} #
    
    
 # Run in debug mode

@@ -135,17 +135,18 @@
 		   // https://www.sitepoint.com/ajaxjquery-getjson-simple-example
 		   
 			$("#power-button").click(function(e) {
-				var speed = document.getElementById('wind-input').value;
-				host = window.location.origin
-				console.log(typeof speed)
-				console.log("WindInput Call")
-				   
-				$.getJSON("/api/power/"+speed, function(data) {
-				   $('#power-output').val(data.power);
-				   console.log("Wind speed " + speed + " gives power output of " + data.power);
-				});
-
-				
+				e.preventDefault();
+				// Get the input
+				var ip = document.getElementById("input").value;//by id
+				// Check that it's an integer & within allowed range.
+				if (is_number(ip) && between(ip, 1, 24)){
+					$.getJSON("/api/model/"+encodeURI(ip), function(result) {
+						$('#output1').val(parseFloat(result.value).toFixed(2)); // float x.xx
+						console.log(result) //checking
+					});	
+				} else {
+					alert("Input must be a positive integer from 1 - 24.");	// error message	
+				}
 			});
 			
 			// On clicking button get ip, feed to model2, create output
