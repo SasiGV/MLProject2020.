@@ -143,7 +143,7 @@ def power(speed):
    ##return {"power" : power_output(s)}
    #return {"power": str([[50]])}
    p = model_S.predict([[w]])
-   return {"value": str(p[0][0])} #
+   return {"power": str(p[0][0])} #
    
    
 # Run in debug mode
