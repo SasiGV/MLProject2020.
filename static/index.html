@@ -13,33 +13,61 @@
 
     <title>Power Production Prediction!</title>
   </head>
-  <body class="p-3 mb-2 bg-secondary text-white">
-    <h1>Hello, You are here to find the power based on wind speed!</h1>
+  <body  style="background-color:#a3ccce;">
+    
 	
 	<br />
 	
 	
-    <div class="container" style="width:600px; margin:0 auto;">
-         <table class="table table-dark">
-            <thead class="thead-dark">
-				<tr style="width:200px;">
-					<img src="images/windturbine.jpg" alt="Wind Turbine">
+    <div class="container" style="width:2000px;" align="center">
+		<h1>Hello, You are here to find the power based on wind speed!</h1>
+         <table class="table-dark text-dark" align="center" style="width:700px;">
+			<tr>
+				<td>
+					<tr style="width:700px;">
+						<img src="Wind_T1.jpg" alt="Wind Turbine" width="670" height="400">
+					</tr>
+				</td>
+				
+				<td>
+					<tr class="table-active">
+					  <td style="width:200;" >
+						 <input class="form-control" id="input" type="number" placeholder="enter wind speed">
+						 <small id="PowerInputHelpInline" class="text-muted">
+							Must be an integer from 1 - 24
+						</small>
+					  </td>
+					  <td style="text-align:center; width:200px;">
+						 <button type="button" class="btn btn-success" id="power-button">Get Power Output</button>
+					  </td>
+					  <td style="width:200px;">
+						 <input class="form-control" id="output" type="text" placeholder="power output" readonly>
+					  </td>
+					</tr>
+				</td>
+				<td>
+				<tr style="width:700px;">
+					<p class="text-left">
+					The purpose of this application is to make wind turbine power output predictions. The power output in kilowatts (kW) is estimated for an inputted wind speed in metres/second (m/s).
+					</p>
+
+					<p class="text-left">
+					The predicted estimate of power output is based on a Keras machine learning model that correlates a training dataset of known power output for measured wind speeds. The original dataset contained in the file "powerproduction.txt" contained 500 data points. After undertaking analyse and research into wind turbines and the dataset, 49 of these data points with 0kW power output were excluded and one duplicate data point was omitted prior to constructing the machine learning model. A plot of the training dataset points and the model prediction estimates is know in the plot below.
+					</p>
+
+					<p class="text-left">
+					The power output prediction includes a 3m/s cut-in wind speed and a 24.5m/s cut-out wind speed limits to model real life wind turbine operation procedures for efficient power output and safety precautions during high winds.
+					</p>
+
+					<br />
+
+
+					
 				</tr>
-               <tr>
-                  <td style="width:200px;">
-                     <input class="form-control" id="input" type="number" placeholder="enter wind speed">
-					 <small id="PowerInputHelpInline" class="text-muted">
-						Must be an integer from 1 - 24
-					</small>
-                  </td>
-                  <td style="text-align:center; width:200px;">
-                     <button type="button" class="btn btn-success" id="power-button">Get Power Output</button>
-                  </td>
-                  <td style="width:200px;">
-                     <input class="form-control" id="output" type="text" placeholder="power output" readonly>
-                  </td>
-               </tr>
-            </thead>
+				</td>
+	
+			</tr>
+	
          </table>
       </div>		
 		
@@ -73,22 +101,7 @@
 				return x >= min && x <= max;
 			}
 		
-			// On clicking button get ip, feed to model1, create output
-			$("#model-button").click(function(e) {
-				e.preventDefault();
-				// Get the input
-				var ip = document.getElementById("input").value;//by id
-				// Check that it's an integer & within allowed range.
-				if (is_number(ip) && between(ip, 1, 24)){
-					$.getJSON("/api/model/"+encodeURI(ip), function(result) {
-						$('#output1').val(parseFloat(result.value).toFixed(2)); // float x.xx
-						console.log(result) //checking
-					});	
-				} else {
-					alert("Input must be a positive integer from 1 - 24.");	// error message	
-				}
-			});
-            
+	            
 			// When button is clicked, use the entered speed to estimate the power output
 		   // Code adapted from https://stackoverflow.com/a/7685819. &
 		   // https://www.sitepoint.com/ajaxjquery-getjson-simple-example
@@ -108,23 +121,7 @@
 				}
 			});
 			
-			// On clicking button get ip, feed to model2, create output
-			$("#model2-button").click(function(e) {
-				e.preventDefault();
-				// Get the input
-				var ip = document.getElementById("input").value;//by id
-				// Check that it's a number 
-				if (is_number(ip) && between(ip, 1, 24)){
-					// need to pass this ip to the app route, result is what is returned from request
-					$.getJSON("/api/model2/"+encodeURI(ip), function(result) {
-						$('#output2').val(parseFloat(result.value).toFixed(2)); // float x.xx
-						console.log(result) //checking
-					});	
-				} else {
-					alert("Input must be a positive integer from 1 - 24.");	// error message	
-				}
-			});
-			
+
 			
       </script>
   </body>
