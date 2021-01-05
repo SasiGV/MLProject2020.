@@ -57,7 +57,7 @@
 						</p>
 						
 						<p class="text-left">
-						<a href="https://github.com/SasikalaGV/MLProject2020/blob/main/Initial_draft.ipynb">Link to find calculations for Keras Model from Jupyter Notebook @ Github</a>
+						<a href="https://github.com/SasikalaGV/MLProject2020/blob/main/ML_PowerPrediction_Project.ipynb">Link to find calculations for Keras Model from Jupyter Notebook @ Github</a>
 						</p>
 
 						<br />					
@@ -106,8 +106,9 @@
 				var ip = document.getElementById("input").value;//by id
 				// Check that it's an integer & within allowed range.
 				if (is_number(ip) && between(ip, 1, 24)){
-					$.getJSON("/api/model/"+encodeURI(ip), function(result) {
-						$('#output').val(parseFloat(result.value).toFixed(2)); // float x.xx
+					$.getJSON("/api/power/"+encodeURI(ip), function(result) {
+						//$('#output').val(parseFloat(result.value).toFixed(2)); // float x.xx
+						$('#output').val(result.power);
 						console.log(result) //checking
 					});	
 				} else {
