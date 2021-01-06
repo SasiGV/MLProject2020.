@@ -35,9 +35,10 @@ loaded_model_json = json_file.read()
 json_file.close()
 model = kr.models.model_from_json(loaded_model_json)
 
-
 # load weights into new model
 model.load_weights("Model_NN.h5")
+
+
 #model=model.compile(optimizer = 'adam', loss = 'binary_crossentropy', metrics = ['accuracy'])
 #print("Compiled")
 #print(model.summary())
@@ -90,9 +91,8 @@ def index():
 # curl http://127.0.0.1:5000/api/power/5
 @app.route('/api/power/<int:speed>')
 def power(speed):
-   #return {"power": str([[50]])}
-   #p = model.predict([[speed]])
-   p = 0
+   
+   #p = 0
    p = power_output(speed)
    return {"power": p}
    

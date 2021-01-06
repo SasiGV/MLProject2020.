@@ -1,0 +1,123 @@
+<!doctype html>
+
+<!-- Copied and adapted from Bootstrap homepage. -->
+
+<html lang="en">
+  <head>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <title>Power Production Prediction!</title>
+  </head>
+  <body  style="background-color:#a3ccce;">
+    
+	
+	<br />
+	
+	
+    <div class="container" style="width:2000px;" align="center">
+		<h1>Power Production Prediction Calculator!</h1>
+         <table class="table-active text-dark" align="center" style="width:700px;">
+			<tr>
+				<td>
+					<tr style="width:800px;">
+						<img src="Wind_T1.jpg" alt="Wind Turbine" width="700" height="400">
+					</tr>
+				</td>
+				
+				<td>
+					<tr class="table-active">
+					  <td style="width:100;" >
+						 <input class="form-control" id="input" type="number" placeholder="Enter wind speed">
+						<!-- <small id="PowerInputHelpInline" class="text-muted">
+							Must be an integer from 1 - 24
+						</small> -->
+					  </td>
+					  <td style="text-align:center; width:200px;">
+						 <button type="button" class="btn btn-success" id="power-button">Get Power Output</button>
+					  </td>
+					  <td style="width:200px;">
+						 <input class="form-control" id="output" type="text" placeholder="Power output" readonly>
+					  </td>
+					</tr>
+				</td>
+				<td>
+					<tr style="width:400px;">
+						<p class="text-center">
+						The purpose of this application is to make wind turbine power output predictions. The power output in kilowatts (kW) is estimated for an inputted wind speed in metres/second (m/s).
+						</p>
+
+						<p class="text-center">
+						The power output prediction includes a 3m/s cut-in wind speed and a 24 m/s cut-out wind speed limits to model real life wind turbine operation procedures for efficient power output and safety precautions during high winds.
+						</p>
+
+						<p class="text-center">
+						The Power Prediction Calculator below will show the Predicted Power value from the model developed using Deep Learning Neural Network keras model.
+						</p>
+						
+						<p class="text-left">
+						<a href="https://github.com/SasikalaGV/MLProject2020/blob/main/ML_PowerPrediction_Project.ipynb">Link to find calculations for Keras Model from Jupyter Notebook @ Github</a>
+						</p>
+
+						<br />					
+					</tr>
+				</td>
+				<td>
+				
+				
+
+				</td>
+			</tr>
+	
+         </table>
+      </div>		
+		
+	<!-- Optional JavaScript; choose one of the two! -->
+ 
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+  
+      <script>
+	  
+			// https://stackoverflow.com/questions/18042133/check-if-input-is-number-or-letter-javascript
+			// Function to verify the input type is a number
+			function is_number(input) {
+				if(input === '')
+					return false;
+				let regex = new RegExp(/[^0-9]/, 'g');
+				return (input.match(regex) === null);
+			}
+			// https://stackoverflow.com/questions/6454198/check-if-a-value-is-within-a-range-of-numbers
+			// Function to check if x between min and max (returns T)
+			function between(x, min, max) {
+				return x >= min && x <= max;
+			}
+		
+	            
+			// When button is clicked, use the entered speed to estimate the power output
+		   // Code adapted from https://stackoverflow.com/a/7685819. &
+		   // https://www.sitepoint.com/ajaxjquery-getjson-simple-example
+		   
+			$("#power-button").click(function(e) {
+				e.preventDefault();
+				// Get the input
+				var ip = document.getElementById("input").value;//by id
+				// Check that it's an integer & within allowed range.
+				if (is_number(ip) && between(ip, 1, 24)){
+					$.getJSON("/api/power/"+encodeURI(ip), function(result) {
+						//$('#output').val(parseFloat(result.value).toFixed(2)); // float x.xx
+						$('#output').val(result.power);
+						console.log(result) //checking
+					});	
+				} else {
+					alert("Input must be a positive integer from 1 - 24.");	// error message	
+				}
+			});
+			
+
+			
+      </script>
+  </body>
+</html>
