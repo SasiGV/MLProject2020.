@@ -22,7 +22,7 @@ The Keras model is loaded into a python Flask web server application called "ser
 
 Index page of the Project:
 
-![Index_Page](images/Indexpage.png)
+![Index_Page](images/IndexPage.png)
 
 ### Project Repository
 
