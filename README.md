@@ -14,22 +14,21 @@ This README describes work done for the Machine Learning and Statistics module p
 This repository contains
 
 1. Jupyter notebook that trains a model using the data set.
-Jupyter Notebook: ML_PowerPrediction_Project.ipynb
+Jupyter Notebook: **ML_PowerPrediction_Project.ipynb**
 
 In this Jupyter Notebook, I have explained about the Models that I have trained using the given dataset "PowerProduction.csv". Before selecting the Neural Network with one hidden layer I have explained why Linear regression is not a good fit. I have also included the python function to predict the the Power output which is close to the predicted value from the trained model using the Neural network. The structure and state of this trained model is saved to the "Model_NN.h5" file included in the repository.
 
 The Keras model is loaded into a python Flask web server application called "server.py" for use with the html user interface html page "Index.html".
 
-Model Output:
-![Model_Output](images/neuralnw.png)
-
 Index page of the Project:
 
-![Index_Page](images/Index_page.jpg)
+![Index_Page](images/Indexpage.png)
 
 ### Project Repository
 
 This project is hosted on GitHub at https://github.com/SasikalaGV/MLProject2020
+
+Docker Image of this project is hosted on DockerHub at https://hub.docker.com/repository/docker/sasitestdocker/mlserverapp
 
 ## Instructions for cloning the repository
 A repository on GitHub exists as a remote repository. You can clone this repository to create a local copy on your computer by following these instructions:
@@ -46,13 +45,13 @@ Enter the GitHub url below to view the file.
 https://github.com/SasikalaGV/MLProject2020/blob/main/ML_PowerPrediction_Project.ipynb
 
 ### Files included in the Repository
- - Data analysis and model training/evaluation in a single Jupyter notebook ML_PowerPrediction_Project.ipynb
- - Data set data/powerproduction.csv
- - static/index.html file for the web server front end.
+ - Data analysis and model training/evaluation in a single Jupyter notebook **ML_PowerPrediction_Project.ipynb**
+ - Data set **data/powerproduction.csv**
+ - **static/index.html** file for the web server front end.
  - All images in images subdirectory.
- - Server.py file for flask server at repository top level.
- - Model file Model_NN.h5 at repository top level.
- - requirements.txt requirements to run flask app in a virtual environment.
+ - **Server.py** file for flask server at repository top level.
+ - Model file **Model_NN.h5** at repository top level.
+ - **requirements.txt** requirements to run flask app in a virtual environment.
  - Rough work/old files in Testing subdirectory.
 
 ### Local Virtual Environment
@@ -94,3 +93,4 @@ I have created a localhost virtual environment to run the server application. Th
 6. The above commands will help to run the server to interact with the webpage using the localhost http://127.0.0.1:5000/
 
 #### In Docker environment:
+
