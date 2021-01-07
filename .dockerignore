@@ -2,7 +2,9 @@
 Dockerfile
 .DS_Store
 .gitignore
+.ipynb_checkpoints
 README.md
+LICENSE
 __pycache__/
 *.py[cod]
 *$py.class
