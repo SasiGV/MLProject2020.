@@ -3,12 +3,12 @@
 ### Student Name : Sasikala Varatharajan
 ### Student Number : G00376470
 
-### Machine Learning - Project file for ML 2020
+## Machine Learning - Project file for ML 2020
 
 This repository contains files for the project in the module 
 Machine Learning and Statistics at GMIT.
 
-### Project Description
+## Project Description
 This README describes work done for the Machine Learning and Statistics module project. In this project we have been asked to create a web service that uses machine learning to make predictions based on the data set powerproduction available on Moodle. The goal is to produce a model that accurately predicts wind turbine power output from wind speed values, as in the data set. we should then develop a web service that will respond with predicted power values based on speed values sent as HTTP requests. 
 
 This repository contains
@@ -20,13 +20,13 @@ In this Jupyter Notebook, I have explained about the Models that I have trained 
 
 The Keras model is loaded into a python Flask web server application called "server.py" for use with the html user interface html page "Index.html".
 
-### Project Repository
+## Project Repository
 
 This project is hosted on GitHub at https://github.com/SasikalaGV/MLProject2020
 
 Docker Image of this project is hosted on DockerHub at https://hub.docker.com/repository/docker/sasitestdocker/mlserverapp
 
-## Instructions for cloning the GIT repository
+### Instructions for cloning the GIT repository
 A repository on GitHub exists as a remote repository. You can clone this repository to create a local copy on your computer by following these instructions:
 1. On GitHub, navigate to the main page of the repository click Clone or download.
 2. Choose "Clone with HTTPS" to copy the address.
@@ -36,7 +36,7 @@ git clone https://github.com/SasikalaGV/MLProject2020
 
 5. Press enter to clone the repository to your machine.
 
-## Instructions to get docker image from reposity
+### Instructions to get docker image from reposity
 A repository on DockerHub exists as public repository. You can download the latest image file by using the following command
 - *docker login* with your credentials 
 - *docker pull sasitestdocker/mlserverapp:3292b50aa402*
@@ -85,15 +85,15 @@ I have created a localhost virtual environment to run the server application. Th
 7. Add *venv/* to the .getinore file
 
 
-### How to run the web service
+## How to run the web service
 
 #### In Windows Virtual environment
 
 - Activate the virutal environment as above and enter the following commands to start the web service
 
 1. In order to setup which server to be used use the following commands
-- *SET FLASK_APP=server.py*
-- *flask run*
+    - *SET FLASK_APP=server.py*
+    - *flask run*
 
 2. The above commands will help to run the server to interact with the webpage using the localhost http://127.0.0.1:5000/
 
@@ -108,10 +108,10 @@ Ir order to build the Docker image you need to install Docker Desktop from the s
 4. *docker container ls* to Verify the container
 5. Once the container is ready, access the web service from you localhost at http://127.0.0.1:5000/ to get the user interface page of the project.
 
-### Commands to run the docker  image downloaded from the DockerHub
+#### Commands to run the docker  image downloaded from the DockerHub
 
 If you have downloaded the docker image from my Dockerhub repository then you can use the following command to start the webservice
 
-- * docker run -d -p 5000:5000 sasitestdocker/mlserverapp:3292b50aa402* to start the container
+- *docker run -d -p 5000:5000 sasitestdocker/mlserverapp:3292b50aa402* to start the container
 - You can now access the web service from your localhost at http://127.0.0.1:5000/ to get the user interface page of the project.
 - *docker container stop b647429a029a* - to stop the container
