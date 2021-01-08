@@ -38,7 +38,7 @@ git clone https://github.com/SasikalaGV/MLProject2020
 
 ## Instructions to get docker image from reposity
 A repository on DockerHub exists as public repository. You can download the latest image file by using the following command
-- **docker pull sasitestdocker/mlserverapp:3292b50aa402**
+- *docker pull sasitestdocker/mlserverapp:3292b50aa402*
 
 ### Static version of the notebook
 Enter the GitHub url below to view the file.
@@ -58,15 +58,16 @@ https://github.com/SasikalaGV/MLProject2020/blob/main/ML_PowerPrediction_Project
 ### Local Virtual Environment
 Download and install the Anaconda distribution of Python from the link https://www.anaconda.com/products/individual. Most packages (Jupyter notebook, Pandas, matplotlib, NumPy, and Scikit-learn) come as part of that distribution.  I used cmder console to to run commands and install the required files for the project files. I used the Python package management system (PIP) to install any additional packages, such as TensorFlow and Flask, as follows:
 
-Example to use PIP to install tensorflow:
+**Example to use PIP to install tensorflow:**
+
 Since I had issues with installing tensorflow on my environment I found the following steps from Internet.
- - Downgrade python version to any one the versions from 3.6 to 3.8. I have selected python 3.8.7 which helped me to install tensorflow 2.4.0
+ - Downgrade python version to any one the available versions from 3.6 to 3.8. I have selected python 3.8.7 which has helped me to install tensorflow 2.4.0
  - Use latest version of pip *python -m pip install --upgrade pip*
  - Install wheel: *pip install wheel*
  - Install TensorFlow: *pip install tensorflow*
 
 ### Virtual environment
-I have created a localhost virtual environment to run the server application. The following Windows command line pip and python commands can be used to create the Virtual environment called venv, install and save packages for venv, set the flask_app server and server mode, run the server, stop the server and finally deactivate venv.
+I have created a localhost virtual environment to run the server application. The following Windows command lines, pip and python commands can be used to create the Virtual environment called venv, install and save packages for venv, set the flask_app server and server mode, run the server, stop the server and finally deactivate venv.
 
 1. Set up a Python virtual environment (VE)  *python -m venv venv* The second venv is the name of the directory which is created to hold the VE configuration.
 
@@ -89,13 +90,14 @@ I have created a localhost virtual environment to run the server application. Th
 
 - Activate the virutal environment as above and enter the following commands to start the web service
 
-1. In order to setup which server to be used use the following command *SET FLASK_APP=server.py* 
-*flask run*
+1. In order to setup which server to be used use the following commands
+- *SET FLASK_APP=server.py*
+- *flask run*
 
 2. The above commands will help to run the server to interact with the webpage using the localhost http://127.0.0.1:5000/
 
 #### In Docker environment:
-Ir order to build the Docker image you need to install Docker Desktop from the site https://docs.docker.com/docker-for-windows/install/. Based on the given instructions from the dockerfile Docker will construct the layers and docker image. We can then start the container to start the server to initialise the User interface.
+Ir order to build the Docker image you need to install Docker Desktop from the site https://docs.docker.com/docker-for-windows/install/. Based on the given instructions from the dockerfile, Docker will construct the layers and docker image. We can then start the container to start the server to initialise the User interface.
 
 #### Commands to build the docker image and start the container
 
