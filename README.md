@@ -38,6 +38,7 @@ git clone https://github.com/SasikalaGV/MLProject2020
 
 ## Instructions to get docker image from reposity
 A repository on DockerHub exists as public repository. You can download the latest image file by using the following command
+- *docker login* with your credentials 
 - *docker pull sasitestdocker/mlserverapp:3292b50aa402*
 
 ### Static version of the notebook
@@ -105,4 +106,12 @@ Ir order to build the Docker image you need to install Docker Desktop from the s
 2. *docker images ls* to list all images
 3. *docker run -d -p 5000:5000 server-app* to create an instance of the image in a containder
 4. *docker container ls* to Verify the container
-5. Once the container is ready, access the web service from you localhost as http://127.0.0.1:5000/ to get the user interface page of the project.
+5. Once the container is ready, access the web service from you localhost at http://127.0.0.1:5000/ to get the user interface page of the project.
+
+### Commands to run the docker  image downloaded from the DockerHub
+
+If you have downloaded the docker image from my Dockerhub repository then you can use the following command to start the webservice
+
+- * docker run -d -p 5000:5000 sasitestdocker/mlserverapp:3292b50aa402* to start the container
+- You can now access the web service from your localhost at http://127.0.0.1:5000/ to get the user interface page of the project.
+- *docker container stop b647429a029a* - to stop the container
