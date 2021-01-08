@@ -20,17 +20,13 @@ In this Jupyter Notebook, I have explained about the Models that I have trained 
 
 The Keras model is loaded into a python Flask web server application called "server.py" for use with the html user interface html page "Index.html".
 
-Index page of the Project:
-
-![Index_Page](images/IndexPage.png)
-
 ### Project Repository
 
 This project is hosted on GitHub at https://github.com/SasikalaGV/MLProject2020
 
 Docker Image of this project is hosted on DockerHub at https://hub.docker.com/repository/docker/sasitestdocker/mlserverapp
 
-## Instructions for cloning the repository
+## Instructions for cloning the GIT repository
 A repository on GitHub exists as a remote repository. You can clone this repository to create a local copy on your computer by following these instructions:
 1. On GitHub, navigate to the main page of the repository click Clone or download.
 2. Choose "Clone with HTTPS" to copy the address.
@@ -40,6 +36,10 @@ git clone https://github.com/SasikalaGV/MLProject2020
 
 5. Press enter to clone the repository to your machine.
 
+## Instructions to get docker image from reposity
+A repository on DockerHub exists as public repository. You can download the latest image file by using the following command
+- **docker pull sasitestdocker/mlserverapp:3292b50aa402**
+
 ### Static version of the notebook
 Enter the GitHub url below to view the file.
 https://github.com/SasikalaGV/MLProject2020/blob/main/ML_PowerPrediction_Project.ipynb
@@ -48,10 +48,11 @@ https://github.com/SasikalaGV/MLProject2020/blob/main/ML_PowerPrediction_Project
  - Data analysis and model training/evaluation in a single Jupyter notebook **ML_PowerPrediction_Project.ipynb**
  - Data set **data/powerproduction.csv**
  - **static/index.html** file for the web server front end.
- - All images in images subdirectory.
+ - All **images** are in images subdirectory.
  - **Server.py** file for flask server at repository top level.
  - Model file **Model_NN.h5** at repository top level.
  - **requirements.txt** requirements to run flask app in a virtual environment.
+ - **Dockerfile** to give instructions to Docker to generate image for the docker image for the project
  - Rough work/old files in Testing subdirectory.
 
 ### Local Virtual Environment
@@ -81,16 +82,25 @@ I have created a localhost virtual environment to run the server application. Th
 
 7. Add *venv/* to the .getinore file
 
+
 ### How to run the web service
 
 #### In Windows Virtual environment
 
 - Activate the virutal environment as above and enter the following commands to start the web service
 
-5. In order to setup which server to be used use the following command *SET FLASK_APP=server.py* 
+1. In order to setup which server to be used use the following command *SET FLASK_APP=server.py* 
 *flask run*
 
-6. The above commands will help to run the server to interact with the webpage using the localhost http://127.0.0.1:5000/
+2. The above commands will help to run the server to interact with the webpage using the localhost http://127.0.0.1:5000/
 
 #### In Docker environment:
+Ir order to build the Docker image you need to install Docker Desktop from the site https://docs.docker.com/docker-for-windows/install/. Based on the given instructions from the dockerfile Docker will construct the layers and docker image. We can then start the container to start the server to initialise the User interface.
 
+#### Commands to build the docker image and start the container
+
+1. *docker build -t server-app .* to build a docker image called server-app
+2. *docker images ls* to list all images
+3. *docker run -d -p 5000:5000 server-app* to create an instance of the image in a containder
+4. *docker container ls* to Verify the container
+5. Once the container is ready, access the web service from you localhost as http://127.0.0.1:5000/ to get the user interface page of the project.
